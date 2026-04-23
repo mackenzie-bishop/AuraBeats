@@ -1,29 +1,40 @@
-import { Link } from 'expo-router';
-import { StyleSheet } from 'react-native';
-
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Screen, PillButton } from '../components/ui';
+import { COLORS } from '../constants/theme';
 
 export default function ModalScreen() {
+  const router = useRouter();
+
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title">This is a modal</ThemedText>
-      <Link href="/" dismissTo style={styles.link}>
-        <ThemedText type="link">Go to home screen</ThemedText>
-      </Link>
-    </ThemedView>
+    <Screen glowColors={['#09090B', '#18181F', '#09090B']}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Aura Beats</Text>
+        <Text style={styles.subtitle}>
+          This route is available for future extras like account details, focus
+          session summaries, or app settings.
+        </Text>
+        <PillButton label="Close" onPress={() => router.back()} />
+      </View>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    gap: 16,
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
+  title: {
+    color: COLORS.textPrimary,
+    fontSize: 30,
+    fontWeight: '900',
+  },
+  subtitle: {
+    color: COLORS.textSecondary,
+    fontSize: 16,
+    lineHeight: 24,
   },
 });

@@ -1,74 +1,127 @@
-import React, { useMemo } from "react";
-import { View, Text, Pressable, StyleSheet, useWindowDimensions } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { useRouter } from "expo-router";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
+import { GlassCard, PillButton, Screen, SectionLabel } from '../components/ui';
+import { COLORS } from '../constants/theme';
 
-export default function SplashScreen() {
+export default function HomeScreen() {
   const router = useRouter();
-  const { height } = useWindowDimensions();
-  const styles = useMemo(() => makeStyles(height), [height]);
 
   return (
-    <LinearGradient
-      colors={["#ff5aa5", "#6a4cff", "#0d1b1e", "#000000"]}
-      locations={[0, 0.35, 0.75, 1]}
-      style={styles.container}
-    >
-      <View style={styles.top}>
-        <Text style={styles.title}>Aura Beats</Text>
+    <Screen glowColors={['#09090B', '#18181F', '#09090B']}>
+      <View style={styles.hero}>
+        <SectionLabel>Aura Beats</SectionLabel>
+        <Text style={styles.title}>Let your mood set the soundtrack.</Text>
+        <Text style={styles.subtitle}>
+        Feel it. Play it.
+        </Text>
       </View>
 
-      <View style={styles.center}>
-        <Pressable style={styles.startBtn} onPress={() => router.push("/mood")}> 
-          <Text style={styles.startText}>Start mood check</Text>
-        </Pressable>
-      </View>
+      <LinearGradient
+        colors={['rgba(124,58,237,0.18)', 'rgba(236,72,153,0.14)', 'rgba(255,255,255,0.03)']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.featurePanel}
+      >
+        <View style={styles.featureBadge}>
+          <Text style={styles.featureBadgeText}>Mood-first music</Text>
+        </View>
+        <Text style={styles.featureTitle}>Start a new playlist session</Text>
+        <Text style={styles.featureText}>
+          Tell us how you're feeling.
+        </Text>
+        <PillButton
+          label="Start mood check"
+          onPress={() => router.push('/mood')}
+          style={styles.buttonSpacing}
+        />
+      </LinearGradient>
 
-      <View style={styles.bottom}>
-        <Pressable style={styles.historyBtn} onPress={() => router.push("/history")}> 
-          <Text style={styles.historyText}>Mood History</Text>
-        </Pressable>
-      </View>
-    </LinearGradient>
+      <GlassCard style={styles.secondaryCard}>
+        <Text style={styles.secondaryTitle}>Review your listening history</Text>
+        <Text style={styles.secondaryText}>
+          Revisit your previous mood selections.
+        </Text>
+        <PillButton
+          label="Open mood history"
+          variant="secondary"
+          onPress={() => router.push('/history')}
+          style={styles.buttonSpacing}
+        />
+      </GlassCard>
+    </Screen>
   );
 }
 
-function makeStyles(height: number) {
-  return StyleSheet.create({
-    container: { flex: 1, paddingHorizontal: 22, paddingTop: 26, paddingBottom: 26 },
-    top: { flex: 1, justifyContent: "flex-start" },
-    center: { flex: 3, justifyContent: "center", alignItems: "center" },
-    bottom: { flex: 1, justifyContent: "flex-end", alignItems: "flex-start" },
-
-    title: {
-      fontSize: 44,
-      fontWeight: "900",
-      letterSpacing: 0.5,
-      color: "#0b0b0b",
-      marginTop: Math.max(6, height * 0.03),
-    },
-
-    startBtn: {
-      width: "100%",
-      backgroundColor: "rgba(9, 20, 26, 0.72)",
-      borderRadius: 14,
-      paddingVertical: 22,
-      alignItems: "center",
-      borderWidth: 1,
-      borderColor: "rgba(255,255,255,0.08)",
-      shadowColor: "#000",
-      shadowOpacity: 0.25,
-      shadowRadius: 10,
-      shadowOffset: { width: 0, height: 6 },
-    },
-    startText: { fontSize: 18, fontWeight: "800", color: "#ff67b0" },
-
-    historyBtn: {
-      backgroundColor: "#ffd1e6",
-      paddingVertical: 10,
-      paddingHorizontal: 16,
-      borderRadius: 12,
-    },
-    historyText: { fontSize: 14, fontWeight: "800", color: "#141414" },
-  });
-}
+const styles = StyleSheet.create({
+  hero: {
+    marginTop: 24,
+    gap: 14,
+  },
+  title: {
+    color: COLORS.textPrimary,
+    fontSize: 30,
+    lineHeight: 36,
+    fontWeight: '900',
+    maxWidth: 320,
+  },
+  subtitle: {
+    color: COLORS.textSecondary,
+    fontSize: 19,
+    lineHeight: 24,
+    maxWidth: 340,
+  },
+  featurePanel: {
+    marginTop: 28,
+    borderRadius: 28,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)',
+    minHeight: 220,
+    justifyContent: 'flex-end',
+  },
+  featureBadge: {
+    alignSelf: 'flex-start',
+    borderRadius: 999,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    marginBottom: 16,
+  },
+  featureBadgeText: {
+    color: COLORS.textPrimary,
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.4,
+  },
+  featureTitle: {
+    color: COLORS.textPrimary,
+    fontSize: 28,
+    lineHeight: 32,
+    fontWeight: '800',
+  },
+  featureText: {
+    color: COLORS.textSecondary,
+    fontSize: 15,
+    lineHeight: 22,
+    marginTop: 10,
+  },
+  secondaryCard: {
+    marginTop: 18,
+  },
+  secondaryTitle: {
+    color: COLORS.textPrimary,
+    fontSize: 20,
+    fontWeight: '800',
+  },
+  secondaryText: {
+    color: COLORS.textSecondary,
+    fontSize: 14,
+    lineHeight: 21,
+    marginTop: 8,
+  },
+  buttonSpacing: {
+    marginTop: 18,
+  },
+});

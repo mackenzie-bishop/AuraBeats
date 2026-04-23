@@ -1,53 +1,52 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+export const COLORS = {
+  background: '#09090B',
+  backgroundElevated: '#111116',
+  card: 'rgba(255,255,255,0.06)',
+  cardStrong: 'rgba(255,255,255,0.10)',
+  border: 'rgba(255,255,255,0.10)',
+  textPrimary: '#FFFFFF',
+  textSecondary: '#B5B7C4',
+  textMuted: '#7D8194',
+  whiteOverlay: 'rgba(255,255,255,0.08)',
+  pink: '#EC4899',
+  purple: '#7C3AED',
+  blue: '#3B82F6',
+  teal: '#14B8A6',
+  green: '#84CC16',
+  amber: '#F59E0B',
+};
 
-import { Platform } from 'react-native';
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+export const MOOD_STYLES = {
+  Happy: {
+    gradient: ['#5B21B6', '#EC4899', '#F59E0B'] as [string, string, string],
+    glow: 'rgba(236,72,153,0.30)',
+    accent: '#F59E0B',
+    subtitle: 'Bright, upbeat songs for a lighter mood.',
   },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+  Chill: {
+    gradient: ['#0F172A', '#155E75', '#3B82F6'] as [string, string, string],
+    glow: 'rgba(59,130,246,0.28)',
+    accent: '#22D3EE',
+    subtitle: 'Smooth, calm tracks to help you settle in.',
+  },
+  Energetic: {
+    gradient: ['#14532D', '#65A30D', '#F59E0B'] as [string, string, string],
+    glow: 'rgba(132,204,22,0.28)',
+    accent: '#A3E635',
+    subtitle: 'Momentum-building songs for focus and motion.',
+  },
+  Romantic: {
+    gradient: ['#4C1D95', '#BE185D', '#FB7185'] as [string, string, string],
+    glow: 'rgba(244,114,182,0.30)',
+    accent: '#F472B6',
+    subtitle: 'Warm, intimate songs with softer energy.',
+  },
+  Blue: {
+    gradient: ['#172554', '#1D4ED8', '#312E81'] as [string, string, string],
+    glow: 'rgba(59,130,246,0.28)',
+    accent: '#60A5FA',
+    subtitle: 'Gentler tracks for reflective or low moods.',
   },
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});
+export type MoodName = keyof typeof MOOD_STYLES;
